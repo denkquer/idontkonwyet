@@ -8,7 +8,7 @@ function setup() {
   let params = new URLSearchParams(document.location.search);
   matrix = new Matrix(100);
   if (typeof parseInt(params.get('knots')) === 'number')
-    if (Math.abs(params.get('knots')) < 300) {
+    if (Math.abs(params.get('knots')) < 300 && Math.abs(params.get('knots')) > 0) {
       console.log(Math.abs(params.get('knots')));
       matrix = new Matrix(Math.abs(params.get('knots')));
     }
