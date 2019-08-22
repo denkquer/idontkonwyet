@@ -4,21 +4,13 @@ let matrix;
 
 function setup() {
   createCanvas(innerWidth, innerHeight);
-
   let params = new URLSearchParams(document.location.search);
-  matrix = new Matrix(100);
+  matrix = new Matrix(50);
   if (typeof parseInt(params.get('knots')) === 'number')
     if (Math.abs(params.get('knots')) < 300 && Math.abs(params.get('knots')) > 0) {
       console.log(Math.abs(params.get('knots')));
       matrix = new Matrix(Math.abs(params.get('knots')));
     }
-  //noLoop();
-
-  // matrix.dots.push(new Dot(100, 100, '0'));
-  // matrix.dots.push(new Dot(200, 100, '1'));
-  // matrix.dots.push(new Dot(300, 200, '2'));
-  // matrix.dots.push(new Dot(600, 700, '3'));
-  // matrix.dots.push(new Dot(700, 700, '4'));
 }
 
 function draw() {
@@ -35,6 +27,8 @@ function Dot(initialX, initialY, i = NaN, debug = undefined) {
   this.debug = debug;
   this.x = initialX;
   this.y = initialY;
+  this.i = 0;
+  this.state = Math.random() > 0.5 ? true : false;
   this.toleranz = 1;
   this.color = [255, 255, 255];
   this.nachbarn = [];
@@ -78,6 +72,7 @@ function Dot(initialX, initialY, i = NaN, debug = undefined) {
   this.reset = () => {
     this.x = Math.floor(Math.random() * innerWidth);
     this.y = Math.floor(Math.random() * innerHeight);
+    this.i = 0;
   };
 }
 
@@ -92,9 +87,13 @@ function Matrix(amount = 0) {
       dot.move();
       dot.show();
     });
-    this.dots.forEach(dot => {
-      dot.autoReset();
-    });
+    setTimeout(
+      () =>
+        this.dots.forEach(dot => {
+          dot.autoReset();
+        }),
+      0
+    );
   };
 
   this.killDot = index => {
