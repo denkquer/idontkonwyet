@@ -1,3 +1,5 @@
+'use strict';
+
 /*global */
 document.body.style.margin = '0px';
 let matrix;
