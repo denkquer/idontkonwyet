@@ -5,7 +5,7 @@ document.body.style.margin = '0px';
 let matrix;
 
 function setup() {
-  createCanvas(innerWidth, innerHeight,WEBGL);
+  createCanvas(innerWidth, innerHeight);
   let params = new URLSearchParams(document.location.search);
   matrix = new Matrix(50);
   if (typeof parseInt(params.get('knots')) === 'number')
